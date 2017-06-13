@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host_id: 
+  name: MyString
+  type: 
+  price: 1
+  amount: 1
+
+two:
+  host_id: 
+  name: MyString
+  type: 
+  price: 1
+  amount: 1
