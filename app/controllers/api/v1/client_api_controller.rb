@@ -15,7 +15,7 @@ module Api
 				client1 = Client.find_by_email(email)
 
 				if client1
-					return response_data({},"Email already used" , 200)
+					return response_data({},"Email already used" , 200,[])
 				else
 
 					check = Client.create(name: name , email: email , password: password , contact: contact , access_token: access_token).valid?
@@ -24,9 +24,10 @@ module Api
 						client = Client.find_by_email(email)
 						data = Hash.new
 						data["access_token"] = client.access_token
-						return response_data(data,"Successfully signed up",200)
+						data["id"] = client.id
+						return response_data(data,"Successfully signed up",200,[])
 					else
-						return response_data({},"Error",200)
+						return response_data({},"Error",200,[])
 					end
 
 				end
@@ -45,12 +46,13 @@ module Api
 					if client.password.eql?password
 						data = Hash.new
 						data["access_token"] = client.access_token
-						return response_data(data,"Successfully signed in",200)
+						data["id"] = client.id
+						return response_data(data,"Successfully signed in",200,[])
 					else
-						return response_data({},"Invalid Password",200)
+						return response_data({},"Invalid Password",200,[])
 					end
 				else
-					return response_data({},"Invalid Email",200)
+					return response_data({},"Invalid Email",200,[])
 				end
 
 			end

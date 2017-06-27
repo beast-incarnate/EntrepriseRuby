@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
 
   namespace :api do
@@ -12,6 +13,11 @@ Rails.application.routes.draw do
       get 'client_sign_in' => "client_api#sign_in"
       get 'get_all_host' => "client_api_logged_in#get_all_host"
       get 'host_get_all_items' => "host_api_logged_in#get_all_items"
+      post 'create_host_client_mapping' => "host_api_logged_in#create_client_host_mapping"
+      get 'all_mappings_client' => "client_api_logged_in#get_mappings_client"
+      get 'all_mappings_host' => "host_api_logged_in#get_mappings_host"
+      post 'update_mapping_status' => "host_api_logged_in#update_mapping_status"
+      post 'delete_mapping' => "host_api_logged_in#delete_mapping"
     end
   end
 
