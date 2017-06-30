@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627030757) do
+ActiveRecord::Schema.define(version: 20170629145503) do
 
   create_table "client_host_mappings", force: :cascade do |t|
     t.integer  "client_id"
     t.integer  "host_id"
     t.integer  "item_id"
-    t.string   "quantity"
     t.integer  "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "quantity"
+    t.string   "host_name"
+    t.string   "client_name"
+    t.string   "item_name"
   end
 
   add_index "client_host_mappings", ["client_id"], name: "index_client_host_mappings_on_client_id"

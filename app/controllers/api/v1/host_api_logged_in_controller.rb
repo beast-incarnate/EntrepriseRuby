@@ -44,18 +44,19 @@ module Api
 				find_item = Item.find_by_name(name)
 
 				if find_item
-					return response_data({},"Item already Present",200,[])
-				else
-					
+					host_access_token = Host.find(find_item.host_id).access_token
+					if params["access_token"].eql?host_access_token
+						return response_data({},"Item already Present",200,[])
+					end
+				end
 					item = @current_api_host.items.create(name: name , price: price  , amount: amount).valid?
 
 					if item
-						added_item = Item.find_by_name(name).id
+						added_item = Item.find_by_name(name)
 						return response_data(added_item,"Successfully added item",200,[])
 					else
 						return response_data({},"Not added item",200,[])
 					end
-				end
 			end
 			def update_item
 
@@ -121,6 +122,15 @@ module Api
 					qunatity = params["qunatity"]
 					status = params["status"]
 
+					@item = Item.find(item_id)
+					unless params["access_token"].eql?Host.find(@item.host_id).access_token
+						return response_data({},"Unaithorised",200,[])
+					end
+
+					mapping = @current_api_host.ClientHostMapping.where(:client_id => client_id , :item_id => item_id).first
+
+				unless mapping
+
 					check = @current_api_host.client_host_mappings.create(client_id: client_id , item_id: item_id , qunatity: qunatity , status: status).valid?
 
 					if check
@@ -128,10 +138,13 @@ module Api
 					else
 						return response_data({},"Invalid entries",200,[])
 					end
+				else
+					return response_data({},"Mapping exists",200,[])
+				end
 			end
 
 			def get_mappings_host
-				@mappings = @current_api_host.client_host_mappings.all
+				@mappings = ClientHostMapping.where(:host_id => @current_api_host.id)
 				return response_data({},"Client mappings",200,@mappings)
 			end
 

@@ -23,7 +23,7 @@ module Api
 			end
 
 			def get_mappings_client
-				@mappings = @current_client.client_host_mappings.all
+				@mappings = ClientHostMapping.where(:client_id => @current_client.id)
 				return response_data({},"Client mappings",200,@mappings)
 			end
 

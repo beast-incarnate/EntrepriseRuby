@@ -4,9 +4,8 @@ class ClientHostMapping < ActiveRecord::Base
   belongs_to :item
 
   validates :host_id , presence: true
-  validates :client_id , presenece: true
-  validates :item_id , presenece: true
-  validates :quantity , presenece: true
-  validates :status , presenece: true
-
+  validates :client_id , presence: true
+  validates :item_id , presence: true
+  validates :quantity , presence: true
+  validates :status , presence: true
 end
